@@ -24,17 +24,19 @@
 
 <script type="text/javascript">
 
-    var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h",
+
+//This is where I store all My values I will need to keep track of
+var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h",
  "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
   "t", "u", "v", "w", "x", "y", "z"];
-
 var random = Math.floor((Math.random()*alphabet.length));
+console.log(random)
 var win = 0;
 var lose = 0;
-var guessesLeft = i;
-var guessesSoFar = i;
-var guess = onkeyup;
-var text = "";
+var guessesLeft = 10;
+var guessesSoFar = 0;
+var guessed = []; 
+
 
 function winlose(arrayArg) {
 if (random === guess) {
@@ -53,15 +55,30 @@ function guessleft(arrayArg) {
         document.getElementById("guessLeft").innerHTML=guessesLeft;
     }
 }
-};
 
-for (guessesSoFar = 0; i < alphabet.length; i++ )
-    text += alphabet[i] + ",";
+/*
+1. User types in a key on key keyUp - set up event 
+2. If the key is a letter continue. if it is not, do not continue
+3. If the letter is within the word that we want, then we will increase wins and increase guessed letters
+4. If the letter is not within the word, we wish to increase losses and guessed letters
+5. If the user gets to 10 
+
+*/
+function show(e) {
+    console.log(e.key)
+    console.log(e["key"])
+    var keyCode = e.keyCode
+    if (keyCode >= 65 && keyCode <= 90){
+        guessed.push(e.key)
+        document.getElementById("guessFar").innerHTML= guessed;
+    }else{
+        alert("THAT WAS NOT A LETTER YOU SWINE!")
+    }
+   
 }
-document.getElementById("guessFar").innerHTML= text;
 
-// remember to write code to clear guesses!
-
+document.addEventListener("keydown",show)
+ 
  
 </script>
 
