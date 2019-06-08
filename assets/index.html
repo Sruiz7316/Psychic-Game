@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>The Psychic Game</title>
+</head>
+
+<body>
+    
+<strong><h1>The Psychic Game</h1></strong>
+
+<p>Guess what letter I'm thinking of</p>
+
+<p>Wins:<span id="wins"> 0</span></p>
+
+<p>Losses:<span id="loss"> 0</span></p>
+
+<p>Guesses Left:<span id="guessLeft"> 9</span></p>
+
+<p>Your Guesses So Far:<span id="guessFar"></span></p>
+
+<script type="text/javascript">
+//This is where I store all My values I will need to keep track of
+var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h",
+ "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
+  "t", "u", "v", "w", "x", "y", "z"];
+var random = Math.floor((Math.random()*alphabet.length));
+console.log(random)
+var win = 0;
+var lose = 0;
+var guessesLeft = 10;
+var guessesSoFar = 0;
+var guessed = []; 
+function winlose(arrayArg) {
+if (random === guess) {
+    win = win + 1;
+    document.getElementById("wins").innerHTML=win;
+}
+else {
+    lose = lose + 1;
+    document.getElementById("loss").innerHTML=lose;
+}
+};
+function guessleft(arrayArg) {
+    gsfindxsum = sum(guessesSoFar[i]);
+    if (gsfindxsum < 9) {
+        document.getElementById("guessLeft").innerHTML=guessesLeft;
+    }
+}
+/*
+1. User types in a key on key keyUp - set up event 
+2. If the key is a letter continue. if it is not, do not continue
+3. If the letter is within the word that we want, then we will increase wins and increase guessed letters
+4. If the letter is not within the word, we wish to increase losses and guessed letters
+5. If the user gets to 10 
+*/
+function show(e) {
+    console.log(e.key)
+    console.log(e["key"])
+    var keyCode = e.keyCode
+    if (keyCode >= 65 && keyCode <= 90){
+        guessed.push(e.key)
+        document.getElementById("guessFar").innerHTML= guessed;
+    }else{
+        
+    }
+   
+}
+document.addEventListener("keydown",show)
+ 
+ 
+</script>
+
+</body>
+</html>
