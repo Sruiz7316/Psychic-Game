@@ -23,55 +23,83 @@
 <p>Your Guesses So Far:<span id="guessFar"></span></p>
 
 <script type="text/javascript">
-//This is where I store all My values I will need to keep track of
+
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h",
  "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
   "t", "u", "v", "w", "x", "y", "z"];
-var random = Math.floor((Math.random()*alphabet.length));
-console.log(random)
+
 var win = 0;
 var lose = 0;
-var guessesLeft = 10;
-var guessesSoFar = 0;
+var guessesLeft = 9;
 var guessed = []; 
-function winlose(arrayArg) {
-if (random === guess) {
-    win = win + 1;
-    document.getElementById("wins").innerHTML=win;
-}
-else {
-    lose = lose + 1;
-    document.getElementById("loss").innerHTML=lose;
-}
-};
-function guessleft(arrayArg) {
-    gsfindxsum = sum(guessesSoFar[i]);
-    if (gsfindxsum < 9) {
+
+document.onkeyup = function(event) {
+
+    function resetGame () {
+        win = 0;
+        lose = 0;
+        guessesLeft = 9;
+        guessed = []
+
+        document.getElementById("wins").innerHTML = win
         document.getElementById("guessLeft").innerHTML=guessesLeft;
+        document.getElementById("loss").innerHTML=lose;
+        document.getElementById("")
+
     }
-}
-/*
-1. User types in a key on key keyUp - set up event 
-2. If the key is a letter continue. if it is not, do not continue
-3. If the letter is within the word that we want, then we will increase wins and increase guessed letters
-4. If the letter is not within the word, we wish to increase losses and guessed letters
-5. If the user gets to 10 
-*/
-function show(e) {
-    console.log(e.key)
-    console.log(e["key"])
-    var keyCode = e.keyCode
-    if (keyCode >= 65 && keyCode <= 90){
-        guessed.push(e.key)
-        document.getElementById("guessFar").innerHTML= guessed;
-    }else{
-        
+
+    var userGuess = event.key;
+                             // .toLowerCase();
+    var random = Math.floor((Math.random()*alphabet.length));
+    var computerchoice = alphabet[random];
+    console.log('Computer',computerchoice);
+    console.log('User',userGuess);
+
+    // guessesLeft = 9;
+//     computerchoice = alphabet[Math.floor((Math.random()*alphabet.length))]
+//     console.log(`Computer choice is now: ${computerchoice}`)
+// }
+ 
+if (userGuess === computerchoice) {
+    ++win;  
+    // guessesLeft //gets reseted  
+    // guessed //gets resetted
+    // guessesSoFar // get resetted
+    document.getElementById("wins").innerHTML= win
+    show(event)
     }
-   
-}
-document.addEventListener("keydown",show)
- 
- 
+
+    else if (guessesLeft >= 1) {
+            guessesLeft--;
+            lose++
+            guessed.push(event.key)
+            document.getElementById("guessLeft").innerHTML=guessesLeft;
+            document.getElementById('loss').innerHTML = lose
+            document.getElementById("guessFar").innerHTML= [...guessed]
+            
+        }
+    
+
+    else {
+     // If guesses left equals zero reset the game
+      resetGame()
+
+    }
+
+    function show(event) {
+    console.log(event.key)
+    var keyCode = event.keyCode
+    if (keyCode >= 65 && keyCode <= 90 && guessesLeft > 0){
+        guessed.push(event.key)
+        console.log(guessed); 
+        document.getElementById("guessFar").innerHTML= [...guessed]
+
+        document.addEventListener("keydown",show)
+    }
+    }
+};
+
+
 </script>
 
 </body>
